@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+  <style type="text/css">
+    #main{
+      position: relative;
+      overflow: hidden;
+    }
+    .con{
+      position: relative;
+      width: 200%;
+      height: 400px;
+      background-color: #ddffaa;
+      -webkit-transform: rotate(-6deg);
+      transform: rotate(-6deg);
+      margin-left: -200px;
+      margin-top: -200px;
+    }
+    .bg{
+      posotion: relative;
+      height: 800px;
+      margin-top: -50px;
+    }
+    .bg1{
+      background: url("http://res.gamer.netease.com/gw/2015//images/bg2_5cd2092.png") center top fixed no-repeat;
+      background-position: 2.5px 10.25px;
+    }
+    .bg2{
+      background: url("http://res.gamer.netease.com/gw/2015//images/bg3_279a7ff.png") center top fixed no-repeat;
+      background-position: 2.5px 60.15px;
+    }
+    .bg3{
+      background: url("http://res.gamer.netease.com/gw/2015//images/bg4_720a48a.png") center top fixed no-repeat;
+      background-position: 2.5px 110.15px;
+    }
+    .bg4{
+      background: url("http://res.gamer.netease.com/gw/2015//images/bg5_fd8d09f.png") center top fixed no-repeat;
+      background-position: 2.5px 160.05px;
+    }
+  </style>
+</head>
+<body>
+  <div id="main">
+    <div class="con" style="background:#66FF99"></div>
+    <div class="bg bg1"></div>
+    <div class="con" style="background:#9999FF"></div>
+    <div class="bg bg2"></div>
+    <div class="con" style="background:#FF9999"></div>
+    <div class="bg bg3"></div>
+    <div class="con" style="background:#FFFF99"></div>
+    <div class="bg bg4"></div>
+  </div>
+  <script type="text/javascript">
+    var bgs = document.getElementsByClassName('bg');
+    var ypos = [];
+    var style;
+
+    for (var i = 0; i < bgs.length; i++) {
+      style = getComputedStyle(bgs[i]);
+      ypos[i] = style.backgroundPositionY;
+    };
+
+    window.addEventListener('scroll', function(e) {
+      console.log('haha');
+      var top = window.scrollY / 20;
+
+      for (var i = 0; i < bgs.length; i++) {
+        item = bgs[i];
+        item.style.backgroundPosition = '0px ' + (parseInt(ypos[i]) - top)  + 'px';
+      }
+    });
+  </script>
+</body>
+</html>
