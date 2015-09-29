@@ -2,21 +2,176 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>fwon.github.io</title>
+    <link rel="stylesheet" href="lib/animate.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <style>
-        .dom-iron{
-            width: 200px;
+        html, body {
+            padding: 0;
+            margin: 0;
         }
-        .css-iron{
-            width: 200px;
-            height: 368px;
-            background: url("img/iron2.png") 0 0 no-repeat;
-            background-size: 200px 368px;
+        body{
+            font-family: Verdana, sans-serif;
+            -webkit-transition: all .2s ease-in;
+            transition: all .2s ease-in;
+        }
+        .iron{
+            position: absolute;
+            width: 400px;
+        }
+        .counter1{
+            left: 5%;
+            top: 9%;
+        }
+        .counter2{
+            width: 350px;
+            left: 5%;
+            top: 30%;
+        }
+        .counter3{
+            width: 350px;
+            right: 5%;
+            top: 5%;
+        }
+        .text{
+            color: #fff;
+            font-size: 50px;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+        }
+        .text:after{
+            -webkit-animation: cursor-blink 0.8s linear infinite;
+            -moz-animation: cursor-blink 0.8s linear infinite;
+            -o-animation: cursor-blink 0.8s linear infinite;
+            animation: cursor-blink 0.8s linear infinite;
+            content: "|";
+            color: #fff;
+            padding-left: 3px;
+        }
+        .hide{
+            display: none;
+        }
+        .black {
+            background-color: black;
+        }
+        @-moz-keyframes cursor-blink {
+            1% {
+              opacity: 0;
+            }
+            40% {
+              opacity: 0;
+            }
+            60% {
+              opacity: 1;
+            }
+            100% {
+              opacity: 1;
+            }
+        }
+        @-webkit-keyframes cursor-blink {
+            1% {
+              opacity: 0;
+            }
+            40% {
+              opacity: 0;
+            }
+            60% {
+              opacity: 1;
+            }
+            100% {
+              opacity: 1;
+            }
+        }
+        @-o-keyframes cursor-blink {
+            1% {
+              opacity: 0;
+            }
+            40% {
+              opacity: 0;
+            }
+            60% {
+              opacity: 1;
+            }
+            100% {
+              opacity: 1;
+            }
+        }
+        @keyframes cursor-blink {
+            1% {
+              opacity: 0;
+            }
+            40% {
+              opacity: 0;
+            }
+            60% {
+              opacity: 1;
+            }
+            100% {
+              opacity: 1;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="dom-iron"><img src="img/iron.png" alt="iron man" width="200"></div>
-    <div class="css-iron"></div>
+    <div class="iron counter2 animated hide"><img src="img/iron4.png" alt="iron man" width="350"></div>
+    <div class="iron counter1 animated hide"><img src="img/iron3.png" alt="iron man" width="500"></div>
+    <div class="iron counter3 animated hide"><img src="img/iron.png" alt="iron man" width="350"></div>
+    <div class="text"></div>
+    <script type="text/javascript">
+        var eventName = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+        //动画顺序表
+        var animationMap = [
+            // ['.counter2', 'bounceInDown'],
+            // ['.counter2', 'bounceOutDown'],
+            // ['.counter3', 'bounceInUp'],
+            // ['.counter3', 'bounceOutLeft'],
+            ['.counter1','zoomInUp', end]
+        ];
+        
+        var i = 0;
+        var len = animationMap.length;
+
+        function cycleAnimation() {
+            if (i > len) return;
+            $(animationMap[i][0]).show().one(eventName, function () {
+                //私有回调
+                if (typeof animationMap[i][2] === "function") {
+                    animationMap[i][2]();
+                }
+                i++;
+                cycleAnimation();
+            }).addClass(animationMap[i][1]);
+        }
+        
+        //animation end callback, to abstract
+        function end () {
+            $("body").addClass('black');
+            var text = "This is iron man.";
+            var timeout = setTimeout(function () {
+                var interval = setInterval(function () {
+                    $('.text').text(text.substring(0, i++));
+                    if (i === 8) {
+                        clearInterval(interval);
+                        timeout = setTimeout(function(){
+                            interval = setInterval(function () {
+                                $('.text').text(text.substring(0, i++));
+                                if (i === text.length + 1) {
+                                    clearInterval(interval);
+                                }
+                            }, 50);
+                            clearTimeout(timeout);
+                        }, 1000);
+                    }
+                }, 100);
+                clearTimeout(timeout);
+            }, 2000);
+            
+        }
+
+        window.onload = function() {
+            cycleAnimation();
+        }
+    </script>
 </body>
 </html>
