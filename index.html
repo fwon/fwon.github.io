@@ -128,7 +128,7 @@
     </style>
 </head>
 <body>
-    <div class="loading"><span class="heart animated flash infinite" style="animation-duration: 5s"></span></div>
+    <div class="loading"><span class="heart animated flash infinite"></span></div>
     <div class="iron counter2 animated hide"><img src="img/iron4.png" alt="iron man" width="350"></div>
     <div class="iron counter1 animated hide"><img src="img/iron3.png" alt="iron man" width="500"></div>
     <div class="iron counter3 animated hide"><img src="img/iron.png" alt="iron man" width="350"></div>
@@ -186,8 +186,15 @@
         }
 
         window.onload = function() {
-            $('.loading').hide();
-            cycleAnimation();
+            var out = setTimeout (function () {
+                $('.heart').removeClass('flash').addClass('rotate');
+                clearTimeout(out);
+                out = setTimeout (function () {
+                    $('.loading').hide();
+                    clearTimeout(out);
+                    cycleAnimation();
+                }, 1000);
+            }, 8000);
         }
     </script>
 </body>
