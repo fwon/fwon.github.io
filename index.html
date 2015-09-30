@@ -39,6 +39,7 @@
             position: absolute;
             top: 40%;
             left: 50%;
+            display: none;
         }
         .text:after{
             -webkit-animation: cursor-blink 0.8s linear infinite;
@@ -48,6 +49,19 @@
             content: "|";
             color: #fff;
             padding-left: 3px;
+        }
+        .loading{
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+        .heart{
+            display: inline-block;
+            width: 200px;
+            height: 200px;
+            margin-top: 200px;
+            background: url("img/heart.png") 0 0 no-repeat;
+            background-size: 200px 200px;
         }
         .hide{
             display: none;
@@ -114,6 +128,7 @@
     </style>
 </head>
 <body>
+    <div class="loading"><span class="heart animated flash infinite" style="animation-duration: 5s"></span></div>
     <div class="iron counter2 animated hide"><img src="img/iron4.png" alt="iron man" width="350"></div>
     <div class="iron counter1 animated hide"><img src="img/iron3.png" alt="iron man" width="500"></div>
     <div class="iron counter3 animated hide"><img src="img/iron.png" alt="iron man" width="350"></div>
@@ -122,10 +137,10 @@
         var eventName = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
         //动画顺序表
         var animationMap = [
-            // ['.counter2', 'bounceInDown'],
-            // ['.counter2', 'bounceOutDown'],
-            // ['.counter3', 'bounceInUp'],
-            // ['.counter3', 'bounceOutLeft'],
+            ['.counter2', 'bounceInDown'],
+            ['.counter2', 'bounceOutDown'],
+            ['.counter3', 'bounceInUp'],
+            ['.counter3', 'bounceOutLeft'],
             ['.counter1','zoomInUp', end]
         ];
         
@@ -147,6 +162,7 @@
         //animation end callback, to abstract
         function end () {
             $("body").addClass('black');
+            $('.text').show();
             var text = "This is iron man.";
             var timeout = setTimeout(function () {
                 var interval = setInterval(function () {
@@ -170,6 +186,7 @@
         }
 
         window.onload = function() {
+            $('.loading').hide();
             cycleAnimation();
         }
     </script>
