@@ -121,7 +121,7 @@
                             <a href="#">
                                 <img width="400" data-src="./img/mvc-g-b.png">
                             </a> -->
-                            <p>处理流程</p>
+                            <p>流程图</p>
                             <a href="#">
                                 <img width="763" data-src="./img/mvc-g-f.png">
                             </a>
@@ -133,19 +133,14 @@
                 </section>
                 <section>
                     <h2>传统页面开发模式</h2>
-                    <pre><code class="hljs" data-trim contenteditable>var name = <\%=username=>;
+                    <pre><code class="hljs" data-trim contenteditable>var name = "wonderfun";
 var content = "<p>This is "+ name +"</p>";
 var container = $("body");
 container.append(html);</code></pre>
-                <p class="fragment">
-                    Model -> name<br/>
-                    View -> content<br/>
-                    Controller -> append
-                </p>
                 </section>
                 <section>
                     <p>Step1 - 分离</p>
-                    <pre><span>model.js</span><code class="hljs" data-trim contenteditable>var name = <\%=username=>;</code></pre>
+                    <pre><span>model.js</span><code class="hljs" data-trim contenteditable>var name = "wonderfun";</code></pre>
                     <pre><span>view.tpl</span><code class="hljs" data-trim contenteditable><p>This is <%=name%></p></code></pre>
                     <pre><span>controller.js</span><code class="hljs" data-trim contenteditable>var tpl = require('view.tpl');
 var data = require('model.js');
@@ -153,8 +148,8 @@ var container = $("body");
 container.append(template.render(tpl, data));</code></pre>
                 </section>
                 <section>
-                    <p>Step2 - View不只是模板</p>
-                    <pre><span>model.js</span><code class="hljs" data-trim contenteditable>var name = <\%=username=>;</code></pre>
+                    <p>Step2 - 添加View逻辑</p>
+                    <pre><span>model.js</span><code class="hljs" data-trim contenteditable>var name = "wonderfun";</code></pre>
                     <pre><span>view.js</span><code class="hljs" data-trim contenteditable>var tpl = require('view.tpl');
 var container = $("body");
 exports.render = function(data) {
@@ -186,7 +181,8 @@ view.render(data);
 event.on(‘change:name’, model    .changeName);</code></pre>
                 </section>
                 <section>
-                    <ul>
+                    <h2>拆分的意义</h2>
+                    <ul class="fragment">
                         <li>职责清晰，良好解耦</li>
                         <li>组件可复用</li>
                         <li>功能可扩展</li>
@@ -196,9 +192,8 @@ event.on(‘change:name’, model    .changeName);</code></pre>
                 <section>
                     <h2>适用场景</h2>
                     <p class="fragment">普通的UI和交互，jQuery+template就能解决</p>
-                    <p class="fragment">一旦涉及到数据，必定会导致复杂度指数上升。
-ajax数量不可控，散乱分布，不易于管理。</p>
-                    <p class="fragment">大型前端项目，具备接口层，发挥Model的价值。</p>
+                    <p class="fragment">ajax数量不可控，散乱分布，不易于管理</p>
+                    <p class="fragment">大型前端项目，具备完善接口层</p>
                 </section>
                 <section>
                     <section>
@@ -211,7 +206,7 @@ ajax数量不可控，散乱分布，不易于管理。</p>
                     </section>
                     <section>
                         <h2>AngularJS</h2>
-                        <p class="fragment">MVVM中的大哥大，实际上也是MVC的一个变种，VM为ViewModel,为一个中间层，本质不是事件监听，而是脏检测或运用原生的setter和getter方法实现双向绑定</p>
+                        <p class="fragment">MVVM的先驱，实际上也是MVC的一个变种，VM为ViewModel,为一个中间层，本质是脏检测</p>
                         <p class="fragment">其他：Ember, Knockout, Vue, Avalon</p>
                     </section>
                     <section>
@@ -238,7 +233,7 @@ ajax数量不可控，散乱分布，不易于管理。</p>
                         它是一个规范
                     </p>
                     <p class="fragment">
-                        通过一个exports对象添加内容来对外暴露模块的变量和方法
+                        通过exports对象添加内容来对外暴露模块的变量和方法
                     </p>
                     <pre  class="fragment grwo"><code class="hljs" data-trim contenteditable>//maths.js
 exports.per = function(){return ((value/total)*100)}
@@ -250,9 +245,12 @@ assertEqual(Maths.per(50,100), 50);</code></pre>
                 <section>
                     <h2>模块转换格式</h2>
                     <p class="fragment">
-                        在服务端可以完美实现CommonJS规范，但在浏览器端实现CommonJS就不那么容易了，因为它需要阻塞UI并适时地执行刚加载的script脚本
+                        在服务端可以完美实现CommonJS规范，但在浏览器端实现CommonJS就不那么容易了
                     </p>
-                    <pre  class="fragment grwo"><code class="hljs" data-trim contenteditable>require.define(‘maths’, function(require, exports){
+                    <p class="fragment">
+                    为了处理客户端的异步加载，添加闭包属性
+                    </p>
+                    <pre  class="fragment"><code class="hljs" data-trim contenteditable>require.define(‘maths’, function(require, exports){
 exports.per = function(){}
 });
 
@@ -260,22 +258,35 @@ require.define(‘application’, function(require, exports){
 var per = require(‘./maths’).per;
 assertEqual(per(50,100), 50);
 }, [‘./maths']);</code></pre>
-                <p class="fragment">
-                    更好地处理客户端的异步加载
-                </p>
+                
                 </section>
                 <section>
-                    <h2>其他模块化方案</h2>
-                    <p class="fragment">
-                        Require.js<br/>
-                        SeaJs<br/>
-                        ...
-                    </p>
+                    <section>
+                        <h2>其他模块化方案</h2>
+                    </section>
+                    <section>
+                        <h2>RequireJS</h2>
+                        <p class="fragment">
+                            遵循<a target="_blank" href="http://requirejs.org/docs/whyamd.html#amd">AMD</a>规范，将依赖写在define方法前面
+                        </p>
+                        <pre  class="fragment"><code class="hljs" data-trim contenteditable>define(['jquery'] , function ($) {
+    return function () {};
+});</code></pre>
+                    </section>
+                    <section>
+                        <h2>SeaJS</h2>
+                        <p class="fragment">遵循<a target="_blank" href="https://github.com/cmdjs/specification/blob/master/draft/module.md">CMD规范</a>，动态申明依赖</p>
+                        <pre  class="fragment"><code class="hljs" data-trim contenteditable>define(function(require, exports, module) {
+
+  // 模块代码
+
+});
+</code></pre>
+                    </section>
                 </section>
                 <section>
                     <h2>面临新的问题 - 资源加载</h2>
-                    <p class="fragment">资源合并</p>
-                    <p class="fragment">按需加载</p>
+                    <p class="fragment">资源合并 & 按需加载的博弈</p>
                     <p class="fragment">工具：FIS, YUI, KISSY, Grunt, Gulp, webpack.. 等等</p>
                 </section>
                 <section>
