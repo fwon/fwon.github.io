@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>reveal.js – The HTML Presentation Framework</title>
+
+        <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+        <meta name="author" content="Hakim El Hattab">
+
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+        <style>
+            .reveal h2 {
+                text-transform: none;
+            }
+        </style>
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+                <section>
+                    <h2>浅谈前端MVC与模块化开发</h2>
+                    <p>
+                        <small>by <a target="blank" href="https://github.com/fwon/blog">王丰</a></small>
+                    </p>
+                    <p>
+                        <!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/black.css'); return false;">Black (default)</a> -
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/white.css'); return false;">White</a> -
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/league.css'); return false;">League</a> -
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/sky.css'); return false;">Sky</a> -
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/beige.css'); return false;">Beige</a> -
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/simple.css'); return false;">Simple</a> <br>
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/serif.css'); return false;">Serif</a> -
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/blood.css'); return false;">Blood</a> -
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/night.css'); return false;">Night</a> -
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/moon.css'); return false;">Moon</a> -
+                        <a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/solarized.css'); return false;">Solarized</a>
+                    </p>
+                </section>
+                <section>
+                    <section id="fragments">
+                        <h2>什么是MVC ？</h2>
+                    </section>
+                    <section>
+                        <p>1978年,Trygve Reenskaug为Smalltalk开发的一个语言框架</p>
+                    </section>
+                    <section>
+                        <p>MVC模式（Model-View-Controller）是软件工程中的一种软件架构模式，把软件系统分为三个基本部分：模型（Model）、视图（View）和控制器（Controller）</p>
+                    </section>
+                    <section>
+                        <a href="#">
+                            <img height="500" data-src="./img/mvc.png">
+                        </a>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>Java MVC</h2>
+                        <p class="fragment">
+                            JavaBean - JSP - Servlet
+                        </p>
+                    </section>
+                    <section>
+                        <a href="#">
+                            <img width="600" data-src="./img/mvc-java.png">
+                        </a>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>Danjo MTV</h2>
+                        <p class="fragment">
+                            T - Template <br/> V - Controller & View
+                        </p>
+                    </section>
+                    <section>
+                        <a href="#">
+                            <img height="600" data-src="./img/mvc-danjo.png">
+                        </a>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>什么是前端MVC ？</h2>
+                        <p class="fragment">
+                            前端主要处理界面交互逻辑，区别于后端的业务逻辑
+                        </p>
+                        <p class="fragment">
+                            前端MVC的处理流程一般是：V -> C -> M -> C -> V
+                        </p>
+                    </section>
+                    <section>
+                            <!-- <p>后端流程</p>
+                            <a href="#">
+                                <img width="400" data-src="./img/mvc-g-b.png">
+                            </a> -->
+                            <p>处理流程</p>
+                            <a href="#">
+                                <img width="763" data-src="./img/mvc-g-f.png">
+                            </a>
+                    </section>
+                </section>
+                <section>
+                    <h2>Show me the code!</h2>
+                    <img data-src="./img/example.jpg" width="200" alt="">
+                </section>
+                <section>
+                    <h2>传统页面开发模式</h2>
+                    <pre><code class="hljs" data-trim contenteditable>var name = <\%=username=>;
+var content = "<p>This is "+ name +"</p>";
+var container = $("body");
+container.append(html);</code></pre>
+                <p class="fragment">
+                    Model -> name<br/>
+                    View -> content<br/>
+                    Controller -> append
+                </p>
+                </section>
+                <section>
+                    <p>Step1 - 分离</p>
+                    <pre><span>model.js</span><code class="hljs" data-trim contenteditable>var name = <\%=username=>;</code></pre>
+                    <pre><span>view.tpl</span><code class="hljs" data-trim contenteditable><p>This is <%=name%></p></code></pre>
+                    <pre><span>controller.js</span><code class="hljs" data-trim contenteditable>var tpl = require('view.tpl');
+var data = require('model.js');
+var container = $("body");
+container.append(template.render(tpl, data));</code></pre>
+                </section>
+                <section>
+                    <p>Step2 - View不只是模板</p>
+                    <pre><span>model.js</span><code class="hljs" data-trim contenteditable>var name = <\%=username=>;</code></pre>
+                    <pre><span>view.js</span><code class="hljs" data-trim contenteditable>var tpl = require('view.tpl');
+var container = $("body");
+exports.render = function(data) {
+     container.append(template.render(tpl, data));
+}</code></pre>
+                    <pre><span>controller.js</span><code class="hljs" data-trim contenteditable>var view = require('view.js');
+var data = require('model.js');
+
+view.render(data);</code></pre>
+                </section>
+                <section>
+                    <p>Step3 - 扩展Model和View</p>
+                    
+                    <pre><span>model.js</span><code class="hljs" data-trim contenteditable>var name = “wonderfun”;
+exports.changeName = function(rename) {
+     name = rename;
+}</code></pre>
+                    <pre><span>view.js</span><code class="hljs" data-trim contenteditable>var tpl = require('view.tpl');
+var container = $("body");
+exports.render = function(data) {
+     container.append(template.render(tpl, data));
+}
+container.click(function(){
+     event.trigger(‘change:name');
+})</code></pre>
+                    <pre><span>controller.js</span><code class="hljs" data-trim contenteditable>var view = require('view.js');
+var model = require('model.js');
+view.render(data);
+event.on(‘change:name’, model    .changeName);</code></pre>
+                </section>
+                <section>
+                    <ul>
+                        <li>职责清晰，良好解耦</li>
+                        <li>组件可复用</li>
+                        <li>功能可扩展</li>
+                        <li>每个部分进行独立开发，测试，维护</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>适用场景</h2>
+                    <p class="fragment">普通的UI和交互，jQuery+template就能解决</p>
+                    <p class="fragment">一旦涉及到数据，必定会导致复杂度指数上升。
+ajax数量不可控，散乱分布，不易于管理。</p>
+                    <p class="fragment">大型前端项目，具备接口层，发挥Model的价值。</p>
+                </section>
+                <section>
+                    <section>
+                        <h2>一些前端MVC框架</h2>
+                    </section>
+                    <section>
+                        <h2>Backbone.js</h2>
+                        <p class="fragment">Backbone.js 更强调View逻辑,本质上是一种 MVP 模式,提供Router,充当Controller的作用</p>
+                        <p class="fragment">其他：Spine, javascriptMVC</p>
+                    </section>
+                    <section>
+                        <h2>AngularJS</h2>
+                        <p class="fragment">MVVM中的大哥大，实际上也是MVC的一个变种，VM为ViewModel,为一个中间层，本质不是事件监听，而是脏检测或运用原生的setter和getter方法实现双向绑定</p>
+                        <p class="fragment">其他：Ember, Knockout, Vue, Avalon</p>
+                    </section>
+                    <section>
+                        <h2>React</h2>
+                        <p class="fragment">专注于View层，可以其他框架搭配使用</p>
+                        <p class="fragment">扩展：Flux, Redux, immutable.js</p>
+                    </section>
+                </section>
+                <section>
+                    <h2>前端MVC需要模块化支持</h2>
+                </section>
+                <section>
+                    <section>
+                        <h2>JavaScript的缺点</h2>
+                        <p class="fragment">缺乏依赖管理和模块系统的特性</p>
+                    </section>
+                    <section>
+                        <p>为了让代码更具移植性，亟需引入一个标准解决方案，让所有的JavaScript都能遵照这个标准来实现统一的模块管理系统</p>
+                    </section>
+                </section>
+                <section>
+                    <h2>CommonJS</h2>
+                    <p class="fragment">
+                        它是一个规范
+                    </p>
+                    <p class="fragment">
+                        通过一个exports对象添加内容来对外暴露模块的变量和方法
+                    </p>
+                    <pre  class="fragment grwo"><code class="hljs" data-trim contenteditable>//maths.js
+exports.per = function(){return ((value/total)*100)}
+
+//application.js
+var Maths = require(‘./maths');
+assertEqual(Maths.per(50,100), 50);</code></pre>
+                </section>
+                <section>
+                    <h2>模块转换格式</h2>
+                    <p class="fragment">
+                        在服务端可以完美实现CommonJS规范，但在浏览器端实现CommonJS就不那么容易了，因为它需要阻塞UI并适时地执行刚加载的script脚本
+                    </p>
+                    <pre  class="fragment grwo"><code class="hljs" data-trim contenteditable>require.define(‘maths’, function(require, exports){
+exports.per = function(){}
+});
+
+require.define(‘application’, function(require, exports){
+var per = require(‘./maths’).per;
+assertEqual(per(50,100), 50);
+}, [‘./maths']);</code></pre>
+                <p class="fragment">
+                    更好地处理客户端的异步加载
+                </p>
+                </section>
+                <section>
+                    <h2>其他模块化方案</h2>
+                    <p class="fragment">
+                        Require.js<br/>
+                        SeaJs<br/>
+                        ...
+                    </p>
+                </section>
+                <section>
+                    <h2>面临新的问题 - 资源加载</h2>
+                    <p class="fragment">资源合并</p>
+                    <p class="fragment">按需加载</p>
+                    <p class="fragment">工具：FIS, YUI, KISSY, Grunt, Gulp, webpack.. 等等</p>
+                </section>
+                <section>
+                    <h2>书籍推荐</h2>
+                    <p><a target="_blank" href="http://book.douban.com/subject/3590768/">
+                    <img src="http://img3.douban.com/mpic/s3651235.jpg" title="JavaScript语言精粹" alt="JavaScript语言精粹">
+                    </a></p>
+                    <p><a target="_blank" href="http://book.douban.com/subject/10733304/"><img class="" src="http://img4.douban.com/mpic/s27269298.jpg" title="基于MVC的JavaScript Web富应用开发"></a></p>
+                </section>
+                <section>
+                    <h1>Thanks!</h1>
+                </section>
+            </div>
+
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+                // Optional reveal.js plugins
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true },
+                    { src: 'plugin/notes/notes.js', async: true }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
