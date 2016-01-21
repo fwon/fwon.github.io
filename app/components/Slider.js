@@ -4,21 +4,12 @@ import Event from '../libs/event'
 export default class Slider extends Component {
     constructor(props) {
         super(props)
-        this._onVisibilityChange = this._onVisibilityChange.bind(this)
-        this.state = {
-            showState: false
-        }
-    }
-    _onVisibilityChange() {
-        this.setState({
-            showState: !this.state.showState
-        })
     }
     componentDidMount() {
-        Event.on('Slider:toggle', this._onVisibilityChange)
     }
     render() {
-        var classes = this.state.showState ? 'slider slideOut' : 'slider'
+        const {status} = this.props
+        const classes = status ? 'slider slideOut' : 'slider'
         return (
             <div className={classes}>
                 <ul>

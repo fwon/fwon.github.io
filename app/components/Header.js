@@ -4,11 +4,12 @@ import Event from '../libs/event'
 export default class Header extends Component {
     constructor(props) {
         super(props)
+        this.initialStatus = true;
+        this._onClickMenu = this._onClickMenu.bind(this)
     }
-    onClickMenu(e) {
-        e.stopPropagation();
-        Event.emit('Slider:toggle')
-        Event.emit('Section:toggle')
+    _onClickMenu() {
+        this.props.onClickMenu(this.initialStatus)
+        this.initialStatus = !this.initialStatus
     }
     render() {
         var svgStyle = {
@@ -19,7 +20,7 @@ export default class Header extends Component {
         }
         return (
             <div className="header">
-                <i className="iconfont icon-menu" onClick={e => this.onClickMenu(e)}></i>
+                <i className="iconfont icon-menu" onClick={e => this._onClickMenu()}></i>
                 <img src="/img/avatar.png"/>
                 <p>fwon</p>
                 <hr className="panel-cover"></hr>
