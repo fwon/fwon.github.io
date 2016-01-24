@@ -1,11 +1,10 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import Slider from '../components/Slider'
-import Header from '../components/Header'
 import {clickMenu} from '../actions'
-import Event from '../libs/event'
+import { routeActions } from 'redux-simple-router'
 
-class Section extends Component {
+class App extends Component {
     constructor(props) {
         super(props)
         this.slideToright = this.slideToright.bind(this)
@@ -14,27 +13,33 @@ class Section extends Component {
         const {dispatch} = this.props
         dispatch(clickMenu(status))
     }
+    clickLink(url) {
+        const {dispatch} = this.props
+        dispatch(routeActions.push(url))
+        dispatch(clickMenu(false)) // 关闭滑动
+    }
     componentDidMount() {
         // Event.on('Section:toggle', this.slideToright)
     }
     render() {
-        const {slideState} = this.props //通过connect将state注入到props
+        const {slideState, dispatch} = this.props //通过connect将state注入到props
         // console.log(SectionDOM());
         return (
             <div>
-                <Slider status={slideState}/>
+                <Slider status={slideState} onLink={(url)=>this.clickLink(url)}/>
                 <section className={slideState ? 'slideOut' : ''}>
-                    <Header onClickMenu={this.slideToright}/>
+                    <i className="iconfont icon-menu" onClick={e => this.slideToright(!slideState)}></i>
                     <div className="content">
-                       <p>power by redux</p>
+                       {this.props.children}
                     </div>
                 </section>
+                
             </div>
         )
     }
 }
 
-Section.propTypes = {
+App.propTypes = {
     slideState: PropTypes.bool.isRequired
 }
 
@@ -45,4 +50,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(Section)
+export default connect(mapStateToProps)(App)

@@ -1,9 +1,14 @@
 import {createStore, applyMiddleware} from 'redux'
+import createHistory from 'history/lib/createHashHistory'
+import {syncHistory} from 'redux-simple-router'
 import createLogger from 'redux-logger'
 import rootReducer from '../reducers'
 
+export const history = createHistory()
+export const reduxRouterMiddleware = syncHistory(history)
 const createStoreWithMiddleware = applyMiddleware(
-    createLogger()
+  reduxRouterMiddleware,
+  createLogger()
 )(createStore)
 
 export default function configureStore(initialState) {

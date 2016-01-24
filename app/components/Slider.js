@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react'
-import Event from '../libs/event'
+// import {Link} from 'react-router'
+import { routeActions } from 'redux-simple-router'
 
 export default class Slider extends Component {
     constructor(props) {
@@ -8,13 +9,14 @@ export default class Slider extends Component {
     componentDidMount() {
     }
     render() {
-        const {status} = this.props
+        const {status, onLink} = this.props
         const classes = status ? 'slider slideOut' : 'slider'
         return (
             <div className={classes}>
                 <ul>
-                    <li>文章</li>
-                    <li>关于</li>
+                    <li onClick={() => onLink('/')}>Home</li>
+                    <li onClick={() => onLink('/archives')}>Archives</li>
+                    <li onClick={() => onLink('/about')}>About</li>
                 </ul>
             </div>
         )
