@@ -13,9 +13,8 @@ export default class Slider extends Component {
         return (
             <div className={classes}>
                 <ul>
-                    <li>技术</li>
-                    <li>生活</li>
-                    <li>其他</li>
+                    <li>文章</li>
+                    <li>关于</li>
                 </ul>
             </div>
         )

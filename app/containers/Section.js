@@ -19,13 +19,14 @@ class Section extends Component {
     }
     render() {
         const {slideState} = this.props //通过connect将state注入到props
+        // console.log(SectionDOM());
         return (
             <div>
                 <Slider status={slideState}/>
                 <section className={slideState ? 'slideOut' : ''}>
                     <Header onClickMenu={this.slideToright}/>
                     <div className="content">
-                       power by redux
+                       <p>power by redux</p>
                     </div>
                 </section>
             </div>
