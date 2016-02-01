@@ -10,6 +10,7 @@ export default class ArchivePage extends Component {
         this.pageContent = ''
     }
     componentWillMount() {
+        // To move to reducers as async loader
         let articleName = './articles/' + this.pageName + '.md'
         console.log(articleName);
         this.pageContent = require(articleName)
