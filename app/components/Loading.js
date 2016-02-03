@@ -9,7 +9,7 @@ class Loading extends Component {
         const {article} = this.props
         return (
             <div className="c-loading" style={{display: article.isFetching ? 'block' : 'none'}}>
-                <img src="../img/loading.gif"/>
+                <img src="./img/loading.gif"/>
             </div>
         )
     }
