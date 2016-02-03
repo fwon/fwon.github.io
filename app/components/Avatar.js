@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 
-export default class Header extends Component {
+export default class Avatar extends Component {
     constructor(props) {
         super(props)
     }
