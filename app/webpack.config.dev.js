@@ -11,7 +11,7 @@ module.exports = {
     output: {
         path: path.join(__dirname), //文件发布路径
         filename: 'bundle.js',
-        publicPath: '/' //html中引用的路径
+        publicPath: './' //html中引用的路径
     },
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(),
