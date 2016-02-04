@@ -9,9 +9,9 @@ module.exports = {
         './index'
     ],
     output: {
-        path: path.join(__dirname), //源文件目录
+        path: path.join(__dirname) + '/dist', //文件发布路径
         filename: 'bundle.js',
-        publicPath: '/'             //发布文件目录
+        publicPath: '/dist'             //异步加载文件所在目录
     },
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(),
