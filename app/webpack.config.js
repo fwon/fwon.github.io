@@ -10,7 +10,7 @@ module.exports = {
     output: {
         path: path.join(__dirname) + '/dist', //文件发布路径
         filename: 'bundle.js',
-        publicPath: '/dist'                   //异步加载文件所在目录
+        publicPath: './dist'                   //异步加载文件所在目录
     },
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(),
