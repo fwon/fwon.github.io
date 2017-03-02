@@ -19,7 +19,7 @@
                          navigator.webkitGetUserMedia ||
                          navigator.mozGetUserMedia;
 
-    navigator.getUserMedia({audio: true, video: false}, function(stream) {
+    navigator.getUserMedia({audio: false, video: true}, function(stream) {
         window.stream = stream;
     }, function() {});
 

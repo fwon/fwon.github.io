@@ -32,8 +32,8 @@
         call.answer();
         call.on('stream', function(remoteStream) {
             console.log('voicing');
-            var audio = document.getElementById('audio');
-            audio.src = window.URL.createObjectURL(remoteStream);
+            var video = document.getElementById('video');
+            video.src = window.URL.createObjectURL(remoteStream);
         });
 
         call.on('close', function() {});
