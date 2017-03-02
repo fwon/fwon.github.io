@@ -4,7 +4,7 @@
     <title>WebRTC Live</title>
 </head>
 <body>
-<video id="video"></video>
+<video id="video" src=""></video>
 <audio id="audio" autoplay></audio>
 <script type="text/javascript" src="peer.min.js"></script>
 <script type="text/javascript">
@@ -34,6 +34,7 @@
             console.log('voicing');
             var video = document.getElementById('video');
             video.src = window.URL.createObjectURL(remoteStream);
+            video.play();
         });
 
         call.on('close', function() {});

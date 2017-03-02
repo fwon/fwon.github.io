@@ -4,6 +4,7 @@
     <title>WebRTC Live</title>
 </head>
 <body>
+<video id="video" src=""></video>
 <script type="text/javascript" src="peer.min.js"></script>
 <script type="text/javascript">
     'use strict';
@@ -19,9 +20,14 @@
                          navigator.webkitGetUserMedia ||
                          navigator.mozGetUserMedia;
 
+    var video = document.getElementById('video');
     navigator.getUserMedia({audio: false, video: true}, function(stream) {
         window.stream = stream;
-    }, function() {});
+        video.src = window.URL.createObjectURL(stream);
+        video.play();
+    }, function() {
+        alert('video error');
+    });
 
     peer.on('connection', function(conn) {
         conn.on('data', function(clientId) {
