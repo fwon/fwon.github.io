@@ -12,6 +12,10 @@
         key: '5z3twzxej0639pb9'
     });
 
+    navigator.getUserMedia = navigator.getUserMedia ||
+                         navigator.webkitGetUserMedia ||
+                         navigator.mozGetUserMedia;
+
     navigator.getUserMedia({audio: true, video: false}, function(stream) {
         window.stream = stream;
     }, function() {});
