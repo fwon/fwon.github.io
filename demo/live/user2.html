@@ -13,7 +13,8 @@
     var clientId = (+new Date()).toString(36) + '_' + (Math.random().toString()).split('.')[1];
 
     var peer = new Peer(clientId, {
-        key: '5z3twzxej0639pb9'
+        key: '5z3twzxej0639pb9',
+        secure: true
     });
 
     var conn = peer.connect('Server');
