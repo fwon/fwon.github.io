@@ -13,13 +13,15 @@
     var clientId = (+new Date()).toString(36) + '_' + (Math.random().toString()).split('.')[1];
 
     var peer = new Peer(clientId, {
-        key: '5z3twzxej0639pb9',
+        host: 'www.fwon.cn',
+        port: 9000,
+        path: '/',
         secure: true
     });
 
     console.log(peer);
-    
-    var conn = peer.connect('Server-5z3twzxej0639pb9');
+
+    var conn = peer.connect('Server');
 
     conn.on('open', function() {
         conn.send(clientId);
