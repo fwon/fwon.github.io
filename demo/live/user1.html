@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebRTC Live</title>
+</head>
+<body>
+<script type="text/javascript" src="http://cdn.peerjs.com/0.3/peer.min.js"></script>
+<script type="text/javascript">
+    'use strict';
+
+    var peer = new Peer('Server', {
+        key: '5z3twzxej0639pb9'
+    });
+
+    navigator.getUserMedia({audio: true, video: false}, function(stream) {
+        window.stream = stream;
+    }, function() {});
+
+    peer.on('connection', function(conn) {
+        conn.on('data', function(clientId) {
+            console.log(clientId);
+            var call = peer.call(clientId, window.stream);
+            call.on('close', function() {});
+        });
+    });
+</script>
+</body>
+</html>

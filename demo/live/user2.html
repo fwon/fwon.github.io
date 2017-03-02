@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebRTC Live</title>
+</head>
+<body>
+<video id="video"></video>
+<audio id="audio" autoplay></audio>
+<script type="text/javascript" src="http://cdn.peerjs.com/0.3/peer.min.js"></script>
+<script type="text/javascript">
+    'use strict';
+
+    var clientId = (+new Date()).toString(36) + '_' + (Math.random().toString()).split('.')[1];
+
+    var peer = new Peer(clientId, {
+        key: '5z3twzxej0639pb9'
+    });
+
+    var conn = peer.connect('Server');
+
+    conn.on('open', function() {
+        conn.send(clientId);
+    });
+
+    peer.on('call', function(call) {
+        console.log('user2 be called');
+        call.answer();
+        call.on('stream', function(remoteStream) {
+            console.log('voicing');
+            var audio = document.getElementById('audio');
+            audio.src = window.URL.createObjectURL(remoteStream);
+        });
+
+        call.on('close', function() {});
+    });
+</script>
+</body>
+</html>
